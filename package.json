@@ -1,6 +1,12 @@
 {
-  "name": "my-mui-todo",
+  "name": "Fit-Track-Pro",
   "version": "0.1.0",
+  "author": {
+    "name": "Aliya Sarman",
+    "email": "aliyasarman@gmail.com",
+    "url": "https://github.com/aliyasarman"
+  },
+  "license": "MIT",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.14.0",
