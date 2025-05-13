@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import { Container, Box, Tabs, Tab, CircularProgress } from '@mui/material';
+import { Box, CircularProgress } from '@mui/material';
 
 // Import components
 import LandingPage from './components/LandingPage';
 import Login from './components/Login';
 import Register from './components/Register';
 import Navbar from './components/Navbar';
-import UserProfileForm from './components/UserProfileForm';
+import Dashboard from './components/Dashboard';
 
 // Create a theme instance
 const theme = createTheme({
@@ -54,54 +54,6 @@ const ProtectedRoute = ({ children }) => {
   }
 
   return children;
-};
-
-// Dashboard component that contains the tab-based navigation
-const Dashboard = () => {
-  const [tabValue, setTabValue] = useState(0);
-  const [userProfile, setUserProfile] = useState(null);
-
-  const handleProfileSubmit = (profile) => {
-    setUserProfile(profile);
-    // Here we'll add logic to generate meal and workout plans
-    console.log('Profile submitted:', profile);
-  };
-
-  const handleTabChange = (event, newValue) => {
-    setTabValue(newValue);
-  };
-
-  return (
-    <Box sx={{ flexGrow: 1, minHeight: '100vh' }}>
-      <Navbar />
-      <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-        <Tabs
-          value={tabValue}
-          onChange={handleTabChange}
-          centered
-          sx={{ mb: 4 }}
-        >
-          <Tab label="Profile" />
-          <Tab label="Meal Plan" disabled={!userProfile} />
-          <Tab label="Workout Plan" disabled={!userProfile} />
-          <Tab label="Grocery List" disabled={!userProfile} />
-        </Tabs>
-
-        {tabValue === 0 && (
-          <UserProfileForm onSubmit={handleProfileSubmit} />
-        )}
-        {tabValue === 1 && (
-          <Box>Meal Plan (Coming Soon)</Box>
-        )}
-        {tabValue === 2 && (
-          <Box>Workout Plan (Coming Soon)</Box>
-        )}
-        {tabValue === 3 && (
-          <Box>Grocery List (Coming Soon)</Box>
-        )}
-      </Container>
-    </Box>
-  );
 };
 
 function App() {
