@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { Box, CircularProgress } from '@mui/material';
+
+// Import theme
+import { theme } from './theme';
 
 // Import components
 import LandingPage from './components/LandingPage';
@@ -10,18 +13,6 @@ import Login from './components/Login';
 import Register from './components/Register';
 import Navbar from './components/Navbar';
 import Dashboard from './components/Dashboard';
-
-// Create a theme instance
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: '#2196F3',
-    },
-    secondary: {
-      main: '#f50057',
-    },
-  },
-});
 
 // Protected Route component
 const ProtectedRoute = ({ children }) => {

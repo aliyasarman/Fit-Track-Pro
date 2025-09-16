@@ -1,38 +1,23 @@
 import React from 'react';
 import {
   Box,
-  Card,
   CardContent,
   Typography,
   Grid,
   LinearProgress,
   Divider,
 } from '@mui/material';
-import { styled } from '@mui/material/styles';
+import { 
+  StatsCard,
+  IconWrapper,
+  GradientText
+} from '../theme/styledComponents';
+import { themeUtils } from '../theme';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 import ScaleIcon from '@mui/icons-material/Scale';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 
-const StyledCard = styled(Card)(({ theme }) => ({
-  height: '100%',
-  display: 'flex',
-  flexDirection: 'column',
-  transition: 'transform 0.2s',
-  '&:hover': {
-    transform: 'translateY(-5px)',
-  },
-}));
-
-const IconWrapper = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  width: 48,
-  height: 48,
-  borderRadius: '50%',
-  marginBottom: theme.spacing(2),
-}));
 
 const DashboardStats = ({ userProfile }) => {
   // Initialize empty stats object
@@ -45,89 +30,123 @@ const DashboardStats = ({ userProfile }) => {
 
   return (
     <Box sx={{ mb: 4 }}>
-      <Typography variant="h5" gutterBottom>
+      <GradientText 
+        variant="h4" 
+        gutterBottom
+        sx={{ 
+          fontWeight: 700,
+          mb: 3,
+          textAlign: 'center',
+        }}
+      >
         Your Fitness Stats
-      </Typography>
+      </GradientText>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6} md={3}>
-          <StyledCard>
-            <CardContent>
-              <IconWrapper sx={{ bgcolor: 'primary.light', color: 'primary.contrastText' }}>
-                <FitnessCenterIcon />
+          <StatsCard>
+            <CardContent sx={{ textAlign: 'center', p: 3 }}>
+              <IconWrapper 
+                size={56} 
+                gradient={themeUtils.gradients.primary} 
+                sx={{ mx: 'auto', mb: 2 }}
+              >
+                <FitnessCenterIcon sx={{ fontSize: 28 }} />
               </IconWrapper>
-              <Typography variant="h4" component="div">
+              <Typography variant="h3" component="div" sx={{ fontWeight: 700, mb: 1 }}>
                 {stats.workoutsCompleted}
               </Typography>
-              <Typography color="text.secondary" gutterBottom>
+              <Typography color="text.secondary" gutterBottom sx={{ fontWeight: 600 }}>
                 Workouts Completed
               </Typography>
-              <Divider sx={{ my: 1 }} />
+              <Divider sx={{ my: 2 }} />
               <Typography variant="body2" color="text.secondary">
                 This Month
               </Typography>
             </CardContent>
-          </StyledCard>
+          </StatsCard>
         </Grid>
         <Grid item xs={12} sm={6} md={3}>
-          <StyledCard>
-            <CardContent>
-              <IconWrapper sx={{ bgcolor: 'error.light', color: 'error.contrastText' }}>
-                <LocalFireDepartmentIcon />
+          <StatsCard>
+            <CardContent sx={{ textAlign: 'center', p: 3 }}>
+              <IconWrapper 
+                size={56} 
+                gradient={themeUtils.status.error} 
+                sx={{ mx: 'auto', mb: 2 }}
+              >
+                <LocalFireDepartmentIcon sx={{ fontSize: 28 }} />
               </IconWrapper>
-              <Typography variant="h4" component="div">
+              <Typography variant="h3" component="div" sx={{ fontWeight: 700, mb: 1 }}>
                 {stats.caloriesBurned}
               </Typography>
-              <Typography color="text.secondary" gutterBottom>
+              <Typography color="text.secondary" gutterBottom sx={{ fontWeight: 600 }}>
                 Calories Burned
               </Typography>
-              <Divider sx={{ my: 1 }} />
+              <Divider sx={{ my: 2 }} />
               <Typography variant="body2" color="text.secondary">
                 This Week
               </Typography>
             </CardContent>
-          </StyledCard>
+          </StatsCard>
         </Grid>
         <Grid item xs={12} sm={6} md={3}>
-          <StyledCard>
-            <CardContent>
-              <IconWrapper sx={{ bgcolor: 'success.light', color: 'success.contrastText' }}>
-                <ScaleIcon />
+          <StatsCard>
+            <CardContent sx={{ textAlign: 'center', p: 3 }}>
+              <IconWrapper 
+                size={56} 
+                gradient={themeUtils.status.success} 
+                sx={{ mx: 'auto', mb: 2 }}
+              >
+                <ScaleIcon sx={{ fontSize: 28 }} />
               </IconWrapper>
-              <Typography variant="h4" component="div">
+              <Typography variant="h3" component="div" sx={{ fontWeight: 700, mb: 1 }}>
                 {stats.weightProgress}%
               </Typography>
-              <Typography color="text.secondary" gutterBottom>
+              <Typography color="text.secondary" gutterBottom sx={{ fontWeight: 600 }}>
                 Weight Goal Progress
               </Typography>
               <LinearProgress 
                 variant="determinate" 
                 value={stats.weightProgress} 
-                sx={{ mt: 1, mb: 1, height: 8, borderRadius: 4 }}
+                sx={{ 
+                  mt: 2, 
+                  mb: 2, 
+                  height: 8, 
+                  borderRadius: 4,
+                  backgroundColor: 'rgba(0,0,0,0.1)',
+                  '& .MuiLinearProgress-bar': {
+                    borderRadius: 4,
+                    background: 'linear-gradient(135deg, #2ecc71 0%, #27ae60 100%)',
+                  }
+                }}
               />
               <Typography variant="body2" color="text.secondary">
                 {userProfile?.weightGoal || 'Goal not set'}
               </Typography>
             </CardContent>
-          </StyledCard>
+          </StatsCard>
         </Grid>
         <Grid item xs={12} sm={6} md={3}>
-          <StyledCard>
-            <CardContent>
-              <IconWrapper sx={{ bgcolor: 'warning.light', color: 'warning.contrastText' }}>
-                <TrendingUpIcon />
+          <StatsCard>
+            <CardContent sx={{ textAlign: 'center', p: 3 }}>
+              <IconWrapper 
+                size={56} 
+                gradient={themeUtils.status.warning} 
+                sx={{ mx: 'auto', mb: 2 }}
+              >
+                <TrendingUpIcon sx={{ fontSize: 28 }} />
               </IconWrapper>
-              <Typography variant="h4" component="div">
+              <Typography variant="h3" component="div" sx={{ fontWeight: 700, mb: 1 }}>
                 {stats.streakDays}
               </Typography>
-              <Typography color="text.secondary" gutterBottom>
+              <Typography color="text.secondary" gutterBottom sx={{ fontWeight: 600 }}>
                 Day Streak
               </Typography>
-              <Divider sx={{ my: 1 }} />
+              <Divider sx={{ my: 2 }} />
               <Typography variant="body2" color="text.secondary">
                 Keep it up!
               </Typography>
             </CardContent>
-          </StyledCard>
+          </StatsCard>
         </Grid>
       </Grid>
     </Box>

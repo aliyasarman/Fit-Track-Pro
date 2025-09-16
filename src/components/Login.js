@@ -1,24 +1,29 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-  Box,
-  Button,
   Container,
-  TextField,
-  Typography,
-  Paper,
-  Link,
   Alert,
+  CircularProgress,
+  Link,
 } from '@mui/material';
-import { styled } from '@mui/material/styles';
+import { 
+  AuthGradientContainer,
+  AuthCard,
+  FormContainer,
+  FormGrid,
+  FormGridItem,
+  FormHeader,
+  FormTitle,
+  FormSubtitle,
+  StyledTextField,
+  FullWidthButton,
+  IconWrapper
+} from '../theme/styledComponents';
+import { themeUtils } from '../theme';
+import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
+import EmailIcon from '@mui/icons-material/Email';
+import LockIcon from '@mui/icons-material/Lock';
 
-const StyledPaper = styled(Paper)(({ theme }) => ({
-  marginTop: theme.spacing(8),
-  padding: theme.spacing(4),
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-}));
 
 const Login = () => {
   const navigate = useNavigate();
@@ -70,60 +75,98 @@ const Login = () => {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
-      <StyledPaper elevation={3}>
-        <Typography component="h1" variant="h5">
-          Sign in to Fit-Track-Pro
-        </Typography>
-        {error && (
-          <Alert severity="error" sx={{ mt: 2, width: '100%' }}>
-            {error}
-          </Alert>
-        )}
-        <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1, width: '100%' }}>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            autoFocus
-            value={formData.email}
-            onChange={handleChange}
-            disabled={loading}
-          />
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-            value={formData.password}
-            onChange={handleChange}
-            disabled={loading}
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-            disabled={loading}
-          >
-            {loading ? 'Signing in...' : 'Sign In'}
-          </Button>
-          <Box sx={{ textAlign: 'center' }}>
-            <Link href="/register" variant="body2">
-              {"Don't have an account? Sign Up"}
-            </Link>
-          </Box>
-        </Box>
-      </StyledPaper>
-    </Container>
+    <AuthGradientContainer>
+      <Container maxWidth="sm">
+        <AuthCard>
+          {/* Header */}
+          <FormHeader>
+            <IconWrapper size={60} gradient={themeUtils.gradients.primary}>
+              <FitnessCenterIcon sx={{ fontSize: 30, color: 'white' }} />
+            </IconWrapper>
+            <FormTitle variant="h4" component="h1">
+              Welcome Back
+            </FormTitle>
+            <FormSubtitle variant="body1">
+              Sign in to continue your fitness journey
+            </FormSubtitle>
+          </FormHeader>
+
+          {/* Error Alert */}
+          {error && (
+            <Alert severity="error" sx={{ mb: 3, borderRadius: 2 }}>
+              {error}
+            </Alert>
+          )}
+
+          {/* Form */}
+          <FormContainer component="form" onSubmit={handleSubmit}>
+            <FormGrid container spacing={2}>
+              <FormGridItem item xs={12}>
+                <StyledTextField
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  autoComplete="email"
+                  autoFocus
+                  value={formData.email}
+                  onChange={handleChange}
+                  disabled={loading}
+                  InputProps={{
+                    startAdornment: <EmailIcon sx={{ mr: 1, color: 'text.secondary' }} />
+                  }}
+                />
+              </FormGridItem>
+              <FormGridItem item xs={12}>
+                <StyledTextField
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  autoComplete="current-password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  disabled={loading}
+                  InputProps={{
+                    startAdornment: <LockIcon sx={{ mr: 1, color: 'text.secondary' }} />
+                  }}
+                />
+              </FormGridItem>
+            </FormGrid>
+            <FullWidthButton
+              type="submit"
+              variant="contained"
+              disabled={loading}
+            >
+              {loading ? <CircularProgress size={24} color="inherit" /> : 'Sign In'}
+            </FullWidthButton>
+            <FormHeader>
+              <FormSubtitle variant="body2">
+                Don't have an account?{' '}
+                <Link 
+                  component="button" 
+                  variant="body2" 
+                  onClick={() => navigate('/register')}
+                  sx={{ 
+                    color: 'primary.main',
+                    textDecoration: 'none',
+                    fontWeight: 600,
+                    '&:hover': {
+                      textDecoration: 'underline'
+                    }
+                  }}
+                >
+                  Create an account
+                </Link>
+              </FormSubtitle>
+            </FormHeader>
+          </FormContainer>
+        </AuthCard>
+      </Container>
+    </AuthGradientContainer>
   );
 };
 

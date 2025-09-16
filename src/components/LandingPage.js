@@ -1,57 +1,108 @@
 import React from 'react';
 import { 
   Box, 
-  Button, 
   Container, 
   Typography, 
-  Paper,
+  CardContent,
 } from '@mui/material';
-import { styled } from '@mui/material/styles';
-
-const StyledPaper = styled(Paper)(({ theme }) => ({
-  padding: theme.spacing(4),
-  margin: theme.spacing(4, 0),
-  background: 'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)',
-  color: 'white',
-}));
-
-const HeroImage = styled('img')({
-  width: '100%',
-  maxWidth: '500px',
-  height: 'auto',
-  borderRadius: '8px',
-  boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
-})
-
+import { 
+  HeroContainer,
+  FeatureCard,
+  IconWrapper,
+  GradientText,
+  SectionHeader,
+  HeroTitle,
+  HeroSubtitle,
+  HeroButtonContainer,
+  HeroButton,
+  HeroButtonOutlined,
+  FeatureIcon,
+  FeaturesContainer,
+  FeaturesGrid,
+  FeatureGridItem
+} from '../theme/styledComponents';
+import { themeUtils } from '../theme';
+import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
+import RestaurantIcon from '@mui/icons-material/Restaurant';
+import TrendingUpIcon from '@mui/icons-material/TrendingUp';
+import PeopleIcon from '@mui/icons-material/People';
 
 const LandingPage = () => {
+  const features = [
+    {
+      icon: <FeatureIcon><FitnessCenterIcon /></FeatureIcon>,
+      title: 'Track Workouts',
+      description: 'Log your exercises, sets, reps, and track your progress over time with detailed workout history.',
+    },
+    {
+      icon: <FeatureIcon><RestaurantIcon /></FeatureIcon>,
+      title: 'Meal Planning',
+      description: 'Plan your meals, track nutrition, and maintain a balanced diet to support your fitness goals.',
+    },
+    {
+      icon: <FeatureIcon><TrendingUpIcon /></FeatureIcon>,
+      title: 'Progress Analytics',
+      description: 'Visualize your fitness journey with charts and analytics to stay motivated and on track.',
+    },
+    {
+      icon: <FeatureIcon><PeopleIcon /></FeatureIcon>,
+      title: 'Community Support',
+      description: 'Connect with like-minded fitness enthusiasts and share your achievements and challenges.',
+    },
+  ];
+
   return (
     <Box>
-      <StyledPaper elevation={3}>
-        <Container maxWidth="md">
-          <Typography variant="h2" component="h1" gutterBottom align="center">
-            Welcome to Fit-Track-Pro
-          </Typography>
-          <Box sx={{ mt: 4, display: 'flex', justifyContent: 'center', gap: 2 }}>
-            <Button 
-              variant="contained" 
-              color="secondary" 
-              size="large"
-              href="/login"
-            >
-              Login
-            </Button>
-            <Button 
-              variant="outlined" 
-              color="inherit" 
-              size="large"
-              href="/register"
-            >
-              Sign Up
-            </Button>
-          </Box>
+      {/* Hero Section */}
+      <HeroContainer>
+        <Container maxWidth="lg">
+          <SectionHeader>
+            <HeroTitle variant="h2" component="h1" gutterBottom>
+              Welcome to Fit Track Pro
+            </HeroTitle>
+            <HeroSubtitle variant="h5" component="p" >
+              Your comprehensive fitness companion. Track workouts, plan meals, monitor progress, 
+              and achieve your health goals with confidence.
+            </HeroSubtitle>
+            <HeroButtonContainer >
+              <HeroButton size="large" href="/register">
+                Get Started Free
+              </HeroButton>
+              <HeroButtonOutlined variant="outlined" size="large" href="/login">
+                Sign In
+              </HeroButtonOutlined>
+            </HeroButtonContainer>
+          </SectionHeader>
         </Container>
-      </StyledPaper>
+      </HeroContainer>
+
+      {/* Features Section */}
+      <FeaturesContainer maxWidth="lg">
+        <SectionHeader>
+          <GradientText variant="h3" component="h2">
+            Everything You Need to Succeed
+          </GradientText>
+        </SectionHeader>
+        <FeaturesGrid container spacing={4}>
+          {features.map((feature, index) => (
+            <FeatureGridItem item xs={12} sm={6} md={3} key={index}>
+              <FeatureCard elevation={2}>
+                <CardContent sx={{ flexGrow: 1, textAlign: 'center', p: 3 }}>
+                  <IconWrapper size={60} gradient={themeUtils.gradients.primary} sx={{ mb: 2, mx: 'auto' }}>
+                    {feature.icon}
+                  </IconWrapper>
+                  <Typography variant="h6" component="h3" gutterBottom sx={{ fontWeight: 'bold' }}>
+                    {feature.title}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {feature.description}
+                  </Typography>
+                </CardContent>
+              </FeatureCard>
+            </FeatureGridItem>
+          ))}
+        </FeaturesGrid>
+      </FeaturesContainer>
     </Box>
   );
 };
